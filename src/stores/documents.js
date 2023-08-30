@@ -5,8 +5,9 @@ import axios from "axios";
 export const useDocumentStore = defineStore('document', {
     state: () => ({
         listDocuments: [],
-        loading: true,
-        selectedDocument: null  // selected document
+        loading: true, // if the documents are not loaded, the loader starts
+        selectedDocument: null, // selected document
+        error: null // error message
     }),
     getters: {},
     actions: {
@@ -22,8 +23,12 @@ export const useDocumentStore = defineStore('document', {
                 }
             }).then((response) => {
                 this.listDocuments = response?.data || []
-            }).catch((error) => {
-              alert(error)
+            }).catch(() => {
+                this.error = 'Ошибка получения списка документов'
+                setTimeout(() => {
+                    this.error = null
+                }, 3000)
+
             }).finally(() => {
                 this.loading = false
             })

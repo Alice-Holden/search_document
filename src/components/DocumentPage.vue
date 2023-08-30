@@ -1,12 +1,17 @@
 <script setup>
 import DocumentPreviewPage from "@/components/DocumentPreviewPage.vue";
 import ListOfDocuments from "@/components/ListOfDocuments.vue";
+import BasicAlert from "@/components/BasicAlert.vue";
+import {useDocumentStore} from "@/stores/documents";
+
+const documentStore = useDocumentStore();
 </script>
 
 <template>
 <div class="document-page">
   <ListOfDocuments class="document-page__list"/>
   <DocumentPreviewPage class="document-page__preview"/>
+  <BasicAlert v-if="documentStore.error"/>
 </div>
 </template>
 
